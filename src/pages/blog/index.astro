@@ -1,0 +1,91 @@
+---
+import { getCollection } from 'astro:content';
+import BaseLayout from '@/layouts/BaseLayout.astro';
+import BlogCard from '@/components/BlogCard.astro';
+import { Badge } from '@/components/ui/badge';
+
+const allPosts = await getCollection('blog', ({ data }) => !data.draft);
+const sorted = allPosts.sort(
+  (a, b) => b.data.pubDate.valueOf() - a.data.pubDate.valueOf()
+);
+
+// Collect all unique tags
+const allTags = [...new Set(sorted.flatMap((p) => p.data.tags))].sort();
+
+// Active tag filter from URL query param
+const { searchParams } = Astro.url;
+const activeTag = searchParams.get('tag') ?? '';
+const filtered = activeTag ? sorted.filter((p) => p.data.tags.includes(activeTag)) : sorted;
+---
+
+<BaseLayout
+  title="Travel Blog — Matt Husar"
+  description="Stories, photos, and tips from travels across the globe."
+>
+  <!-- Header -->
+  <section class="border-b border-border py-20">
+    <div class="mx-auto max-w-7xl px-4 sm:px-6 lg:px-8">
+      <p class="text-xs font-bold tracking-widest text-muted-foreground uppercase mb-4">
+        Travel Blog
+      </p>
+      <h1 class="text-5xl sm:text-6xl font-black tracking-tight mb-6">
+        Around the world,<br />one post at a time.
+      </h1>
+      <p class="text-lg text-muted-foreground max-w-xl leading-relaxed">
+        Trip reports, city guides, and random observations from the road.
+      </p>
+    </div>
+  </section>
+
+  <!-- Tag filter -->
+  {
+    allTags.length > 0 && (
+      <section class="border-b border-border py-5 sticky top-16 z-40 bg-background/95 backdrop-blur">
+        <div class="mx-auto max-w-7xl px-4 sm:px-6 lg:px-8">
+          <div class="flex items-center gap-2 flex-wrap">
+            <a href="/blog">
+              <Badge
+                variant={activeTag === '' ? 'default' : 'outline'}
+                className="cursor-pointer text-xs"
+              >
+                All
+              </Badge>
+            </a>
+            {allTags.map((tag) => (
+              <a href={`/blog?tag=${encodeURIComponent(tag)}`}>
+                <Badge
+                  variant={activeTag === tag ? 'default' : 'outline'}
+                  className="cursor-pointer text-xs"
+                >
+                  {tag}
+                </Badge>
+              </a>
+            ))}
+          </div>
+        </div>
+      </section>
+    )
+  }
+
+  <!-- Posts grid -->
+  <section class="py-16">
+    <div class="mx-auto max-w-7xl px-4 sm:px-6 lg:px-8">
+      {
+        filtered.length === 0 ? (
+          <div class="text-center py-24">
+            <p class="text-muted-foreground">No posts found for this tag.</p>
+            <a href="/blog" class="mt-4 inline-block text-sm underline underline-offset-4">
+              Clear filter
+            </a>
+          </div>
+        ) : (
+          <div class="grid md:grid-cols-2 lg:grid-cols-3 gap-8">
+            {filtered.map((post) => (
+              <BlogCard post={post} />
+            ))}
+          </div>
+        )
+      }
+    </div>
+  </section>
+</BaseLayout>

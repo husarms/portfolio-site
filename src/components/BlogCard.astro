@@ -1,0 +1,69 @@
+---
+import type { CollectionEntry } from 'astro:content';
+import { Badge } from '@/components/ui/badge';
+
+interface Props {
+  post: CollectionEntry<'blog'>;
+}
+
+const { post } = Astro.props;
+const { title, description, pubDate, heroImage, tags, destination } = post.data;
+const formattedDate = pubDate.toLocaleDateString('en-US', {
+  year: 'numeric',
+  month: 'long',
+  day: 'numeric',
+});
+---
+
+<article
+  class="group relative flex flex-col overflow-hidden rounded-xl border border-border bg-card hover:shadow-lg transition-shadow duration-300"
+>
+  <!-- Hero image -->
+  <a href={`/blog/${post.id}`} class="block overflow-hidden aspect-[16/9] bg-muted">
+    {
+      heroImage ? (
+        <img
+          src={heroImage}
+          alt={title}
+          class="w-full h-full object-cover group-hover:scale-105 transition-transform duration-500"
+          loading="lazy"
+        />
+      ) : (
+        <div class="w-full h-full flex items-center justify-center bg-gradient-to-br from-muted to-muted-foreground/10">
+          <span class="text-4xl">✈️</span>
+        </div>
+      )
+    }
+  </a>
+
+  <!-- Content -->
+  <div class="flex flex-col flex-1 p-6">
+    <div class="flex items-center gap-2 mb-3 text-xs text-muted-foreground">
+      <time datetime={pubDate.toISOString()}>{formattedDate}</time>
+      {destination && (
+        <>
+          <span>·</span>
+          <span class="font-medium">📍 {destination}</span>
+        </>
+      )}
+    </div>
+
+    <a href={`/blog/${post.id}`} class="group/title">
+      <h2
+        class="text-lg font-bold leading-snug mb-2 group-hover/title:underline underline-offset-2"
+      >
+        {title}
+      </h2>
+    </a>
+
+    <p class="text-sm text-muted-foreground line-clamp-2 flex-1">{description}</p>
+
+    <div class="flex flex-wrap gap-1.5 mt-4">
+      {tags.map((tag) => (
+        <Badge variant="secondary" className="text-xs">
+          {tag}
+        </Badge>
+      ))}
+    </div>
+  </div>
+</article>
