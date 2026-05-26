@@ -2,6 +2,12 @@
 @import "tw-animate-css";
 @import "shadcn/tailwind.css";
 @import "@fontsource-variable/geist";
+@import "@fontsource-variable/plus-jakarta-sans";
+@import "@fontsource-variable/dm-sans";
+@import "@fontsource-variable/bricolage-grotesque";
+@import "@fontsource-variable/sora";
+@import "@fontsource-variable/inter";
+/* Cabinet Grotesk + Satoshi loaded via Fontshare CDN in BaseLayout.astro */
 @plugin "@tailwindcss/typography";
 
 @custom-variant dark (&:is(.dark *));
@@ -56,9 +62,9 @@
     --card-foreground: oklch(0.145 0 0);
     --popover: oklch(1 0 0);
     --popover-foreground: oklch(0.145 0 0);
-    --primary: oklch(0.205 0 0);
+    --primary: oklch(0.62 0.18 204);
     --primary-foreground: oklch(0.985 0 0);
-    --secondary: oklch(0.97 0 0);
+    --ring: oklch(0.62 0.18 204);
     --secondary-foreground: oklch(0.205 0 0);
     --muted: oklch(0.97 0 0);
     --muted-foreground: oklch(0.556 0 0);
@@ -67,8 +73,7 @@
     --destructive: oklch(0.577 0.245 27.325);
     --border: oklch(0.922 0 0);
     --input: oklch(0.922 0 0);
-    --ring: oklch(0.708 0 0);
-    --chart-1: oklch(0.87 0 0);
+    --secondary: oklch(0.97 0 0);
     --chart-2: oklch(0.556 0 0);
     --chart-3: oklch(0.439 0 0);
     --chart-4: oklch(0.371 0 0);
@@ -91,8 +96,8 @@
     --card-foreground: oklch(0.985 0 0);
     --popover: oklch(0.205 0 0);
     --popover-foreground: oklch(0.985 0 0);
-    --primary: oklch(0.922 0 0);
-    --primary-foreground: oklch(0.205 0 0);
+    --primary: oklch(0.75 0.17 204);
+    --primary-foreground: oklch(0.145 0 0);
     --secondary: oklch(0.269 0 0);
     --secondary-foreground: oklch(0.985 0 0);
     --muted: oklch(0.269 0 0);
@@ -126,6 +131,39 @@
     @apply bg-background text-foreground;
     }
   html {
-    @apply font-sans;
+    /* Use var() so runtime font switching via data-font attribute works */
+    font-family: var(--font-sans);
     }
+  h1, h2, h3, h4, h5, h6 {
+    font-family: var(--font-heading);
+    }
+}
+
+/* ── Font theme overrides ─────────────────────────────────────────────────
+   Set data-font attribute on <html> to switch between font combinations.
+   The FontSwitcher component handles this + persists to localStorage.
+────────────────────────────────────────────────────────────────────────── */
+html[data-font="jakarta"] {
+  --font-sans: 'Plus Jakarta Sans Variable', sans-serif;
+  --font-heading: 'Plus Jakarta Sans Variable', sans-serif;
+}
+
+html[data-font="bricolage"] {
+  --font-sans: 'DM Sans Variable', sans-serif;
+  --font-heading: 'Bricolage Grotesque Variable', sans-serif;
+}
+
+html[data-font="cabinet"] {
+  --font-sans: 'Satoshi', sans-serif;
+  --font-heading: 'Cabinet Grotesk', sans-serif;
+}
+
+html[data-font="inter"] {
+  --font-sans: 'Inter Variable', sans-serif;
+  --font-heading: 'Inter Variable', sans-serif;
+}
+
+html[data-font="sora"] {
+  --font-sans: 'Sora Variable', sans-serif;
+  --font-heading: 'Sora Variable', sans-serif;
 }

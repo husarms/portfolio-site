@@ -1,91 +1,145 @@
 ---
-import { getCollection } from 'astro:content';
-import BaseLayout from '@/layouts/BaseLayout.astro';
-import BlogCard from '@/components/BlogCard.astro';
-import { Badge } from '@/components/ui/badge';
+import { getCollection } from "astro:content";
+import BaseLayout from "@/layouts/BaseLayout.astro";
+import BlogCard from "@/components/BlogCard.astro";
+import TravelMap from "@/components/TravelMap";
+import { Badge } from "@/components/ui/badge";
+import type { TravelPin } from "@/components/TravelMap";
 
-const allPosts = await getCollection('blog', ({ data }) => !data.draft);
+const allPosts = await getCollection("blog", ({ data }) => !data.draft);
 const sorted = allPosts.sort(
-  (a, b) => b.data.pubDate.valueOf() - a.data.pubDate.valueOf()
+    (a, b) => b.data.pubDate.valueOf() - a.data.pubDate.valueOf(),
 );
+
+// Build pins for posts that have coordinates
+const pins: TravelPin[] = sorted
+    .filter((p) => p.data.coordinates)
+    .map((p) => ({
+        lat: p.data.coordinates!.lat,
+        lng: p.data.coordinates!.lng,
+        destination: p.data.destination ?? p.data.title,
+        postTitle: p.data.title,
+        postSlug: p.id,
+        heroImage: p.data.heroImage,
+    }));
 
 // Collect all unique tags
 const allTags = [...new Set(sorted.flatMap((p) => p.data.tags))].sort();
 
 // Active tag filter from URL query param
 const { searchParams } = Astro.url;
-const activeTag = searchParams.get('tag') ?? '';
-const filtered = activeTag ? sorted.filter((p) => p.data.tags.includes(activeTag)) : sorted;
+const activeTag = searchParams.get("tag") ?? "";
+const filtered = activeTag
+    ? sorted.filter((p) => p.data.tags.includes(activeTag))
+    : sorted;
 ---
 
 <BaseLayout
-  title="Travel Blog — Matt Husar"
-  description="Stories, photos, and tips from travels across the globe."
+    title="Travel Blog — Matt Husar"
+    description="Stories, photos, and tips from travels across the globe."
 >
-  <!-- Header -->
-  <section class="border-b border-border py-20">
-    <div class="mx-auto max-w-7xl px-4 sm:px-6 lg:px-8">
-      <p class="text-xs font-bold tracking-widest text-muted-foreground uppercase mb-4">
-        Travel Blog
-      </p>
-      <h1 class="text-5xl sm:text-6xl font-black tracking-tight mb-6">
-        Around the world,<br />one post at a time.
-      </h1>
-      <p class="text-lg text-muted-foreground max-w-xl leading-relaxed">
-        Trip reports, city guides, and random observations from the road.
-      </p>
-    </div>
-  </section>
-
-  <!-- Tag filter -->
-  {
-    allTags.length > 0 && (
-      <section class="border-b border-border py-5 sticky top-16 z-40 bg-background/95 backdrop-blur">
+    <!-- Header -->
+    <section class="border-b border-border py-20">
         <div class="mx-auto max-w-7xl px-4 sm:px-6 lg:px-8">
-          <div class="flex items-center gap-2 flex-wrap">
-            <a href="/blog">
-              <Badge
-                variant={activeTag === '' ? 'default' : 'outline'}
-                className="cursor-pointer text-xs"
-              >
-                All
-              </Badge>
-            </a>
-            {allTags.map((tag) => (
-              <a href={`/blog?tag=${encodeURIComponent(tag)}`}>
-                <Badge
-                  variant={activeTag === tag ? 'default' : 'outline'}
-                  className="cursor-pointer text-xs"
-                >
-                  {tag}
-                </Badge>
-              </a>
-            ))}
-          </div>
+            <p
+                class="text-xs font-bold tracking-widest text-muted-foreground uppercase mb-4"
+            >
+                Travel Blog
+            </p>
+            <h1 class="text-5xl sm:text-6xl font-black tracking-tight mb-6">
+                Around the world,<br />one post at a time.
+            </h1>
+            <p class="text-lg text-muted-foreground max-w-xl leading-relaxed">
+                Trip reports, city guides, and random observations from the
+                road.
+            </p>
         </div>
-      </section>
-    )
-  }
+    </section>
 
-  <!-- Posts grid -->
-  <section class="py-16">
-    <div class="mx-auto max-w-7xl px-4 sm:px-6 lg:px-8">
-      {
-        filtered.length === 0 ? (
-          <div class="text-center py-24">
-            <p class="text-muted-foreground">No posts found for this tag.</p>
-            <a href="/blog" class="mt-4 inline-block text-sm underline underline-offset-4">
-              Clear filter
-            </a>
-          </div>
-        ) : (
-          <div class="grid md:grid-cols-2 lg:grid-cols-3 gap-8">
-            {filtered.map((post) => (
-              <BlogCard post={post} />
-            ))}
-          </div>
+    <!-- Interactive travel map -->
+    {
+        pins.length > 0 && (
+            <section class="border-b border-border">
+                <div class="mx-auto max-w-7xl px-4 sm:px-6 lg:px-8 py-10">
+                    <div class="flex items-center justify-between mb-6">
+                        <div>
+                            <h2 class="text-xl font-black tracking-tight">
+                                Where I've been
+                            </h2>
+                            <p class="text-sm text-muted-foreground mt-0.5">
+                                {pins.length} destination
+                                {pins.length !== 1 ? "s" : ""} and counting
+                            </p>
+                        </div>
+                    </div>
+                    <div class="rounded-xl overflow-hidden border border-border shadow-sm">
+                        <TravelMap pins={pins} client:only="react" />
+                    </div>
+                </div>
+            </section>
         )
-      }
-    </div>
-  </section>
+    }
+
+    <!-- Tag filter -->
+    {
+        allTags.length > 0 && (
+            <section class="border-b border-border py-5 sticky top-16 z-40 bg-background/95 backdrop-blur">
+                <div class="mx-auto max-w-7xl px-4 sm:px-6 lg:px-8">
+                    <div class="flex items-center gap-2 flex-wrap">
+                        <a href="/blog">
+                            <Badge
+                                variant={
+                                    activeTag === "" ? "default" : "outline"
+                                }
+                                className="cursor-pointer text-xs"
+                            >
+                                All
+                            </Badge>
+                        </a>
+                        {allTags.map((tag) => (
+                            <a href={`/blog?tag=${encodeURIComponent(tag)}`}>
+                                <Badge
+                                    variant={
+                                        activeTag === tag
+                                            ? "default"
+                                            : "outline"
+                                    }
+                                    className="cursor-pointer text-xs"
+                                >
+                                    {tag}
+                                </Badge>
+                            </a>
+                        ))}
+                    </div>
+                </div>
+            </section>
+        )
+    }
+
+    <!-- Posts grid -->
+    <section class="py-16">
+        <div class="mx-auto max-w-7xl px-4 sm:px-6 lg:px-8">
+            {
+                filtered.length === 0 ? (
+                    <div class="text-center py-24">
+                        <p class="text-muted-foreground">
+                            No posts found for this tag.
+                        </p>
+                        <a
+                            href="/blog"
+                            class="mt-4 inline-block text-sm underline underline-offset-4"
+                        >
+                            Clear filter
+                        </a>
+                    </div>
+                ) : (
+                    <div class="grid md:grid-cols-2 lg:grid-cols-3 gap-8">
+                        {filtered.map((post) => (
+                            <BlogCard post={post} />
+                        ))}
+                    </div>
+                )
+            }
+        </div>
+    </section>
 </BaseLayout>

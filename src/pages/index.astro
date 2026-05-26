@@ -1,405 +1,512 @@
 ---
-import BaseLayout from '@/layouts/BaseLayout.astro';
-import { Badge } from '@/components/ui/badge';
-import { Card, CardContent, CardHeader, CardTitle, CardDescription } from '@/components/ui/card';
-import { Separator } from '@/components/ui/separator';
+import BaseLayout from "@/layouts/BaseLayout.astro";
+import { Badge } from "@/components/ui/badge";
+import {
+	Card,
+	CardContent,
+	CardHeader,
+	CardTitle,
+	CardDescription,
+} from "@/components/ui/card";
+import { Separator } from "@/components/ui/separator";
 
 const experience = [
-  {
-    company: 'Acme Corp',
-    role: 'Senior Software Engineer',
-    period: '2022 — Present',
-    location: 'San Francisco, CA',
-    description:
-      'Leading frontend architecture for a SaaS platform serving 500K+ users. Built a shared design system, migrated legacy codebase to TypeScript, and reduced bundle size by 40%.',
-    tags: ['React', 'TypeScript', 'Next.js', 'AWS'],
-  },
-  {
-    company: 'Startup XYZ',
-    role: 'Full Stack Developer',
-    period: '2019 — 2022',
-    location: 'New York, NY',
-    description:
-      'Built and scaled three greenfield products from 0 to 100K users. Owned the full stack from Postgres schema design to React UI. Introduced CI/CD pipelines and cut deployment time by 60%.',
-    tags: ['Node.js', 'React', 'PostgreSQL', 'Docker'],
-  },
-  {
-    company: 'Agency Co.',
-    role: 'Software Developer',
-    period: '2017 — 2019',
-    location: 'Boston, MA',
-    description:
-      'Delivered 12+ client projects across e-commerce, fintech, and media verticals. Specialized in performance optimization and accessibility auditing.',
-    tags: ['JavaScript', 'PHP', 'WordPress', 'MySQL'],
-  },
+	{
+		company: "Acme Corp",
+		role: "Senior Software Engineer",
+		period: "2022 — Present",
+		location: "San Francisco, CA",
+		description:
+			"Leading frontend architecture for a SaaS platform serving 500K+ users. Built a shared design system, migrated legacy codebase to TypeScript, and reduced bundle size by 40%.",
+		tags: ["React", "TypeScript", "Next.js", "AWS"],
+	},
+	{
+		company: "Startup XYZ",
+		role: "Full Stack Developer",
+		period: "2019 — 2022",
+		location: "New York, NY",
+		description:
+			"Built and scaled three greenfield products from 0 to 100K users. Owned the full stack from Postgres schema design to React UI. Introduced CI/CD pipelines and cut deployment time by 60%.",
+		tags: ["Node.js", "React", "PostgreSQL", "Docker"],
+	},
+	{
+		company: "Agency Co.",
+		role: "Software Developer",
+		period: "2017 — 2019",
+		location: "Boston, MA",
+		description:
+			"Delivered 12+ client projects across e-commerce, fintech, and media verticals. Specialized in performance optimization and accessibility auditing.",
+		tags: ["JavaScript", "PHP", "WordPress", "MySQL"],
+	},
 ];
 
 const education = [
-  {
-    school: 'University of Massachusetts',
-    degree: 'B.S. Computer Science',
-    period: '2013 — 2017',
-    description: 'Focused on algorithms, distributed systems, and human-computer interaction.',
-  },
+	{
+		school: "University of Massachusetts",
+		degree: "B.S. Computer Science",
+		period: "2013 — 2017",
+		description:
+			"Focused on algorithms, distributed systems, and human-computer interaction.",
+	},
 ];
 
 const skills: Record<string, string[]> = {
-  Frontend: ['React', 'TypeScript', 'Next.js', 'Astro', 'Tailwind CSS', 'Figma'],
-  Backend: ['Node.js', 'Python', 'PostgreSQL', 'Redis', 'GraphQL', 'REST APIs'],
-  Infrastructure: ['AWS', 'Docker', 'Vercel', 'GitHub Actions', 'Terraform'],
-  Other: ['Technical Writing', 'Agile / Scrum', 'Mentoring', 'Code Review'],
+	Frontend: [
+		"React",
+		"TypeScript",
+		"Next.js",
+		"Astro",
+		"Tailwind CSS",
+		"Figma",
+	],
+	Backend: [
+		"Node.js",
+		"Python",
+		"PostgreSQL",
+		"Redis",
+		"GraphQL",
+		"REST APIs",
+	],
+	Infrastructure: ["AWS", "Docker", "Vercel", "GitHub Actions", "Terraform"],
+	Other: ["Technical Writing", "Agile / Scrum", "Mentoring", "Code Review"],
 };
 
 const projects = [
-  {
-    title: 'Portfolio Site',
-    description:
-      'This site — a personal portfolio and travel blog built with Astro, shadcn/ui, and Tailwind CSS. Deployed on Vercel.',
-    tags: ['Astro', 'TypeScript', 'shadcn/ui', 'MDX'],
-    href: 'https://github.com/matthusar/portfolio-site',
-  },
-  {
-    title: 'Travel Tracker',
-    description:
-      'A full-stack app to log, map, and share travel experiences. Features geolocation tagging, photo uploads, and shareable trip links.',
-    tags: ['Next.js', 'Mapbox', 'Supabase', 'Vercel'],
-    href: 'https://github.com/matthusar/travel-tracker',
-  },
-  {
-    title: 'Open Source Contributions',
-    description:
-      'Active contributor to open source projects including accessibility improvements to popular component libraries and developer tooling.',
-    tags: ['Open Source', 'TypeScript', 'React', 'Accessibility'],
-    href: 'https://github.com/matthusar',
-  },
+	{
+		title: "Portfolio Site",
+		description:
+			"This site — a personal portfolio and travel blog built with Astro, shadcn/ui, and Tailwind CSS. Deployed on Vercel.",
+		tags: ["Astro", "TypeScript", "shadcn/ui", "MDX"],
+		href: "https://github.com/matthusar/portfolio-site",
+	},
+	{
+		title: "Travel Tracker",
+		description:
+			"A full-stack app to log, map, and share travel experiences. Features geolocation tagging, photo uploads, and shareable trip links.",
+		tags: ["Next.js", "Mapbox", "Supabase", "Vercel"],
+		href: "https://github.com/matthusar/travel-tracker",
+	},
+	{
+		title: "Open Source Contributions",
+		description:
+			"Active contributor to open source projects including accessibility improvements to popular component libraries and developer tooling.",
+		tags: ["Open Source", "TypeScript", "React", "Accessibility"],
+		href: "https://github.com/matthusar",
+	},
 ];
 
 const socials = [
-  { href: 'mailto:hello@matthusar.com', label: 'Email', icon: '✉️' },
-  { href: 'https://github.com/matthusar', label: 'GitHub', icon: '⚙️' },
-  { href: 'https://linkedin.com/in/matthusar', label: 'LinkedIn', icon: '💼' },
-  { href: 'https://twitter.com/matthusar', label: 'Twitter / X', icon: '🐦' },
+	{ href: "mailto:hello@matthusar.com", label: "Email", icon: "✉️" },
+	{ href: "https://github.com/matthusar", label: "GitHub", icon: "⚙️" },
+	{
+		href: "https://linkedin.com/in/matthusar",
+		label: "LinkedIn",
+		icon: "💼",
+	},
+	{ href: "https://twitter.com/matthusar", label: "Twitter / X", icon: "🐦" },
 ];
 ---
 
 <BaseLayout title="Matt Husar — Software Engineer & Traveler">
-  <!-- ── HERO ─────────────────────────────────────── -->
-  <section class="relative min-h-[92vh] flex items-center border-b border-border overflow-hidden">
-    <!-- Subtle grid background -->
-    <div
-      class="absolute inset-0 bg-[linear-gradient(to_right,hsl(var(--border))_1px,transparent_1px),linear-gradient(to_bottom,hsl(var(--border))_1px,transparent_1px)] bg-[size:4rem_4rem] [mask-image:radial-gradient(ellipse_80%_60%_at_50%_50%,#000_20%,transparent_100%)] opacity-30"
-    ></div>
+	<!-- ── HERO ─────────────────────────────────────── -->
+	<section
+		class="relative min-h-[92vh] flex items-center border-b border-border overflow-hidden"
+	>
+		<!-- Background photo -->
+		<img
+			src="/tokyo-bg.jpg"
+			alt=""
+			aria-hidden="true"
+			class="absolute inset-0 w-full h-full object-cover"
+			loading="eager"
+		/>
+		<!-- Light overlay to keep photo from competing with the card -->
+		<div class="absolute inset-0 bg-white/80"></div>
 
-    <div class="relative mx-auto max-w-7xl px-4 sm:px-6 lg:px-8 py-24 w-full">
-      <div class="max-w-3xl">
-        <p class="text-sm font-medium tracking-widest text-muted-foreground uppercase mb-6">
-          Software Engineer & Traveler
-        </p>
-        <h1 class="text-6xl sm:text-7xl lg:text-8xl font-black tracking-tight leading-none mb-8">
-          Matt<br />Husar<span class="text-muted-foreground/30">.</span>
-        </h1>
-        <p class="text-xl text-muted-foreground max-w-lg mb-10 leading-relaxed">
-          I build scalable web products and document the world one trip at a time.
-          Based in San Francisco.
-        </p>
-        <div class="flex flex-wrap gap-4">
-          <a
-            href="#experience"
-            class="inline-flex items-center justify-center rounded-md bg-foreground text-background px-6 py-3 text-sm font-semibold hover:opacity-90 transition-opacity"
-          >
-            View my work
-          </a>
-          <a
-            href="/blog"
-            class="inline-flex items-center justify-center rounded-md border border-border px-6 py-3 text-sm font-semibold hover:bg-muted transition-colors"
-          >
-            Travel blog →
-          </a>
-        </div>
-      </div>
-    </div>
+		<div
+			class="relative mx-auto max-w-7xl px-4 sm:px-6 lg:px-8 py-24 w-full"
+		>
+			<!-- Solid white card with elevation -->
+			<div class="max-w-3xl rounded-2xl bg-background border border-border shadow-[0_20px_60px_-10px_rgba(0,0,0,0.8)] px-8 py-10 sm:px-12 sm:py-14">
+				<p
+					class="text-sm font-medium tracking-widest text-foreground/50 uppercase mb-6"
+				>
+					Software Engineer & Traveler
+				</p>
+				<h1
+					class="text-6xl sm:text-7xl lg:text-8xl font-black tracking-tight leading-none mb-8 text-foreground"
+				>
+					Matt<br />Husar<span class="text-primary"
+						>.</span
+					>
+				</h1>
+				<p
+					class="text-xl text-foreground/70 max-w-lg mb-10 leading-relaxed"
+				>
+					I build scalable web products and document the world one
+					trip at a time. Based in San Francisco.
+				</p>
+				<div class="flex flex-wrap gap-4">
+					<a
+						href="#experience"
+						class="inline-flex items-center justify-center rounded-md bg-foreground text-background px-6 py-3 text-sm font-semibold hover:opacity-90 transition-opacity"
+					>
+						View my work
+					</a>
+					<a
+						href="/blog"
+						class="inline-flex items-center justify-center rounded-md border border-border px-6 py-3 text-sm font-semibold text-foreground hover:bg-black/5 transition-colors"
+					>
+						Travel blog →
+					</a>
+				</div>
+			</div>
+		</div>
 
-    <!-- Scroll indicator -->
-    <div class="absolute bottom-8 left-1/2 -translate-x-1/2 animate-bounce">
-      <svg
-        xmlns="http://www.w3.org/2000/svg"
-        width="20"
-        height="20"
-        fill="none"
-        viewBox="0 0 24 24"
-        stroke="currentColor"
-        stroke-width="2"
-        class="text-muted-foreground"
-      >
-        <path stroke-linecap="round" stroke-linejoin="round" d="M19 9l-7 7-7-7"></path>
-      </svg>
-    </div>
-  </section>
+		<!-- Scroll indicator -->
+		<div class="absolute bottom-8 left-1/2 -translate-x-1/2 animate-bounce">
+			<svg
+				xmlns="http://www.w3.org/2000/svg"
+				width="20"
+				height="20"
+				fill="none"
+				viewBox="0 0 24 24"
+				stroke="currentColor"
+				stroke-width="2"
+				class="text-foreground/40"
+			>
+				<path
+					stroke-linecap="round"
+					stroke-linejoin="round"
+					d="M19 9l-7 7-7-7"></path>
+			</svg>
+		</div>
+	</section>
 
-  <!-- ── ABOUT ──────────────────────────────────── -->
-  <section id="about" class="py-24 scroll-mt-16">
-    <div class="mx-auto max-w-7xl px-4 sm:px-6 lg:px-8">
-      <div class="grid lg:grid-cols-2 gap-16 items-center">
-        <div class="order-last lg:order-first">
-          <div
-            class="aspect-square max-w-md mx-auto rounded-2xl bg-muted border border-border flex items-center justify-center text-8xl"
-          >
-            👨‍💻
-          </div>
-        </div>
-        <div>
-          <p class="text-xs font-bold tracking-widest text-muted-foreground uppercase mb-4">
-            01 — About
-          </p>
-          <h2 class="text-4xl font-black tracking-tight mb-6">
-            Building the web,<br />exploring the world.
-          </h2>
-          <div class="space-y-4 text-muted-foreground leading-relaxed">
-            <p>
-              Hey, I'm Matt. I'm a software engineer with 8+ years of experience building
-              products that people actually enjoy using. I care deeply about performance,
-              accessibility, and clean code.
-            </p>
-            <p>
-              When I'm not shipping features, you'll find me somewhere new — camera in hand,
-              exploring everything from Tokyo's backstreets to Patagonia's mountains. This
-              site is a home for both.
-            </p>
-            <p>
-              I'm currently open to senior / staff engineering roles and select consulting
-              engagements.
-            </p>
-          </div>
-          <div class="mt-8 flex gap-6">
-            <a
-              href="#contact"
-              class="text-sm font-semibold underline underline-offset-4 hover:opacity-70 transition-opacity"
-            >
-              Get in touch →
-            </a>
-            <a
-              href="/resume.pdf"
-              class="text-sm font-semibold text-muted-foreground underline underline-offset-4 hover:text-foreground transition-colors"
-            >
-              Download CV
-            </a>
-          </div>
-        </div>
-      </div>
-    </div>
-  </section>
+	<!-- ── ABOUT ──────────────────────────────────── -->
+	<section id="about" class="py-24 scroll-mt-16">
+		<div class="mx-auto max-w-7xl px-4 sm:px-6 lg:px-8">
+			<div class="grid lg:grid-cols-2 gap-16 items-center">
+				<div class="order-last lg:order-first">
+					<div
+						class="aspect-square max-w-md mx-auto rounded-2xl bg-muted border border-border flex items-center justify-center text-8xl"
+					>
+						👨‍💻
+					</div>
+				</div>
+				<div>
+					<p
+						class="text-sm font-bold tracking-wider text-primary uppercase mb-4"
+					>
+						01 — About
+					</p>
+					<h2 class="text-4xl font-black tracking-tight mb-6">
+						Building the web,<br />exploring the world.
+					</h2>
+					<div
+						class="space-y-4 text-muted-foreground leading-relaxed"
+					>
+						<p>
+							Hey, I'm Matt. I'm a software engineer with 8+ years
+							of experience building products that people actually
+							enjoy using. I care deeply about performance,
+							accessibility, and clean code.
+						</p>
+						<p>
+							When I'm not shipping features, you'll find me
+							somewhere new — camera in hand, exploring everything
+							from Tokyo's backstreets to Patagonia's mountains.
+							This site is a home for both.
+						</p>
+						<p>
+							I'm currently open to senior / staff engineering
+							roles and select consulting engagements.
+						</p>
+					</div>
+					<div class="mt-8 flex gap-6">
+						<a
+							href="#contact"
+							class="text-sm font-semibold underline underline-offset-4 hover:opacity-70 transition-opacity"
+						>
+							Get in touch →
+						</a>
+						<a
+							href="/resume.pdf"
+							class="text-sm font-semibold text-muted-foreground underline underline-offset-4 hover:text-foreground transition-colors"
+						>
+							Download CV
+						</a>
+					</div>
+				</div>
+			</div>
+		</div>
+	</section>
 
-  <Separator />
+	<Separator />
 
-  <!-- ── EXPERIENCE ─────────────────────────────── -->
-  <section id="experience" class="py-24 scroll-mt-16">
-    <div class="mx-auto max-w-7xl px-4 sm:px-6 lg:px-8">
-      <p class="text-xs font-bold tracking-widest text-muted-foreground uppercase mb-4">
-        02 — Experience
-      </p>
-      <h2 class="text-4xl font-black tracking-tight mb-14">Where I've worked.</h2>
+	<!-- ── EXPERIENCE ─────────────────────────────── -->
+	<section id="experience" class="py-24 scroll-mt-16">
+		<div class="mx-auto max-w-7xl px-4 sm:px-6 lg:px-8">
+			<p
+				class="text-sm font-bold tracking-wider text-primary uppercase mb-4"
+			>
+				02 — Experience
+			</p>
+			<h2 class="text-4xl font-black tracking-tight mb-14">
+				Where I've worked.
+			</h2>
 
-      <div class="space-y-12">
-        {
-          experience.map((job) => (
-            <div class="grid md:grid-cols-[200px_1fr] gap-4 md:gap-12">
-              <div class="md:pt-1">
-                <p class="text-sm font-semibold">{job.period}</p>
-                <p class="text-xs text-muted-foreground mt-0.5">{job.location}</p>
-              </div>
-              <div class="relative pl-6 border-l border-border">
-                <span class="absolute left-0 top-1.5 -translate-x-1/2 w-2.5 h-2.5 rounded-full bg-foreground ring-4 ring-background" />
-                <p class="text-xs font-bold tracking-widest text-muted-foreground uppercase mb-1">
-                  {job.company}
-                </p>
-                <h3 class="text-xl font-bold mb-2">{job.role}</h3>
-                <p class="text-muted-foreground text-sm leading-relaxed mb-4">
-                  {job.description}
-                </p>
-                <div class="flex flex-wrap gap-1.5">
-                  {job.tags.map((tag) => (
-                    <Badge variant="secondary" className="text-xs">
-                      {tag}
-                    </Badge>
-                  ))}
-                </div>
-              </div>
-            </div>
-          ))
-        }
-      </div>
-    </div>
-  </section>
+			<div class="space-y-12">
+				{
+					experience.map((job) => (
+						<div class="grid md:grid-cols-[200px_1fr] gap-4 md:gap-12">
+							<div class="md:pt-1">
+								<p class="text-sm font-semibold">
+									{job.period}
+								</p>
+								<p class="text-xs text-muted-foreground mt-0.5">
+									{job.location}
+								</p>
+							</div>
+							<div class="relative pl-6 border-l border-border">
+						<span class="absolute left-0 top-1.5 -translate-x-1/2 w-2.5 h-2.5 rounded-full bg-primary ring-4 ring-background" />
+								<p class="text-xs font-bold tracking-widest text-muted-foreground uppercase mb-1">
+									{job.company}
+								</p>
+								<h3 class="text-xl font-bold mb-2">
+									{job.role}
+								</h3>
+								<p class="text-muted-foreground text-sm leading-relaxed mb-4">
+									{job.description}
+								</p>
+								<div class="flex flex-wrap gap-1.5">
+									{job.tags.map((tag) => (
+										<Badge
+											variant="secondary"
+											className="text-xs"
+										>
+											{tag}
+										</Badge>
+									))}
+								</div>
+							</div>
+						</div>
+					))
+				}
+			</div>
+		</div>
+	</section>
 
-  <Separator />
+	<Separator />
 
-  <!-- ── EDUCATION ──────────────────────────────── -->
-  <section id="education" class="py-24 scroll-mt-16">
-    <div class="mx-auto max-w-7xl px-4 sm:px-6 lg:px-8">
-      <p class="text-xs font-bold tracking-widest text-muted-foreground uppercase mb-4">
-        03 — Education
-      </p>
-      <h2 class="text-4xl font-black tracking-tight mb-14">Where I studied.</h2>
-      <div class="space-y-6">
-        {
-          education.map((edu) => (
-            <Card className="max-w-2xl">
-              <CardHeader>
-                <div class="flex items-start justify-between gap-4">
-                  <div>
-                    <CardTitle className="text-xl">{edu.school}</CardTitle>
-                    <CardDescription className="text-base mt-1">
-                      {edu.degree}
-                    </CardDescription>
-                  </div>
-                  <p class="text-sm text-muted-foreground shrink-0">{edu.period}</p>
-                </div>
-              </CardHeader>
-              <CardContent>
-                <p class="text-sm text-muted-foreground">{edu.description}</p>
-              </CardContent>
-            </Card>
-          ))
-        }
-      </div>
-    </div>
-  </section>
+	<!-- ── EDUCATION ──────────────────────────────── -->
+	<section id="education" class="py-24 scroll-mt-16">
+		<div class="mx-auto max-w-7xl px-4 sm:px-6 lg:px-8">
+			<p
+				class="text-sm font-bold tracking-wider text-primary uppercase mb-4"
+			>
+				03 — Education
+			</p>
+			<h2 class="text-4xl font-black tracking-tight mb-14">
+				Where I studied.
+			</h2>
+			<div class="space-y-6">
+				{
+					education.map((edu) => (
+						<Card className="max-w-2xl">
+							<CardHeader>
+								<div class="flex items-start justify-between gap-4">
+									<div>
+										<CardTitle className="text-xl">
+											{edu.school}
+										</CardTitle>
+										<CardDescription className="text-base mt-1">
+											{edu.degree}
+										</CardDescription>
+									</div>
+									<p class="text-sm text-muted-foreground shrink-0">
+										{edu.period}
+									</p>
+								</div>
+							</CardHeader>
+							<CardContent>
+								<p class="text-sm text-muted-foreground">
+									{edu.description}
+								</p>
+							</CardContent>
+						</Card>
+					))
+				}
+			</div>
+		</div>
+	</section>
 
-  <Separator />
+	<Separator />
 
-  <!-- ── SKILLS ─────────────────────────────────── -->
-  <section id="skills" class="py-24 scroll-mt-16">
-    <div class="mx-auto max-w-7xl px-4 sm:px-6 lg:px-8">
-      <p class="text-xs font-bold tracking-widest text-muted-foreground uppercase mb-4">
-        04 — Skills
-      </p>
-      <h2 class="text-4xl font-black tracking-tight mb-14">What I work with.</h2>
-      <div class="grid sm:grid-cols-2 lg:grid-cols-4 gap-10">
-        {
-          Object.entries(skills).map(([category, items]) => (
-            <div>
-              <h3 class="text-xs font-bold tracking-widest text-muted-foreground uppercase mb-4">
-                {category}
-              </h3>
-              <div class="flex flex-wrap gap-2">
-                {items.map((skill) => (
-                  <Badge variant="outline" className="text-xs font-medium">
-                    {skill}
-                  </Badge>
-                ))}
-              </div>
-            </div>
-          ))
-        }
-      </div>
-    </div>
-  </section>
+	<!-- ── SKILLS ─────────────────────────────────── -->
+	<section id="skills" class="py-24 scroll-mt-16">
+		<div class="mx-auto max-w-7xl px-4 sm:px-6 lg:px-8">
+			<p
+				class="text-sm font-bold tracking-wider text-primary uppercase mb-4"
+			>
+				04 — Skills
+			</p>
+			<h2 class="text-4xl font-black tracking-tight mb-14">
+				What I work with.
+			</h2>
+			<div class="grid sm:grid-cols-2 lg:grid-cols-4 gap-10">
+				{
+					Object.entries(skills).map(([category, items]) => (
+						<div>
+							<h3 class="text-xs font-bold tracking-widest text-muted-foreground uppercase mb-4">
+								{category}
+							</h3>
+							<div class="flex flex-wrap gap-2">
+								{items.map((skill) => (
+									<Badge
+										variant="outline"
+										className="text-xs font-medium"
+									>
+										{skill}
+									</Badge>
+								))}
+							</div>
+						</div>
+					))
+				}
+			</div>
+		</div>
+	</section>
 
-  <Separator />
+	<Separator />
 
-  <!-- ── PROJECTS ────────────────────────────────── -->
-  <section id="projects" class="py-24 scroll-mt-16">
-    <div class="mx-auto max-w-7xl px-4 sm:px-6 lg:px-8">
-      <p class="text-xs font-bold tracking-widest text-muted-foreground uppercase mb-4">
-        05 — Projects
-      </p>
-      <h2 class="text-4xl font-black tracking-tight mb-14">What I've built.</h2>
-      <div class="grid md:grid-cols-2 lg:grid-cols-3 gap-6">
-        {
-          projects.map((project) => (
-            <a
-              href={project.href}
-              target="_blank"
-              rel="noopener noreferrer"
-              class="group block"
-            >
-              <Card className="h-full hover:shadow-md transition-shadow duration-300">
-                <CardHeader>
-                  <div class="flex items-start justify-between">
-                    <CardTitle className="text-base group-hover:underline underline-offset-2">
-                      {project.title}
-                    </CardTitle>
-                    <svg
-                      xmlns="http://www.w3.org/2000/svg"
-                      width="16"
-                      height="16"
-                      fill="none"
-                      viewBox="0 0 24 24"
-                      stroke="currentColor"
-                      stroke-width="2"
-                      class="text-muted-foreground shrink-0 mt-0.5 group-hover:translate-x-0.5 group-hover:-translate-y-0.5 transition-transform"
-                    >
-                      <path
-                        stroke-linecap="round"
-                        stroke-linejoin="round"
-                        d="M7 17L17 7M17 7H7M17 7v10"
-                      />
-                    </svg>
-                  </div>
-                </CardHeader>
-                <CardContent className="flex flex-col gap-4">
-                  <CardDescription>{project.description}</CardDescription>
-                  <div class="flex flex-wrap gap-1.5 mt-auto">
-                    {project.tags.map((tag) => (
-                      <Badge variant="secondary" className="text-xs">
-                        {tag}
-                      </Badge>
-                    ))}
-                  </div>
-                </CardContent>
-              </Card>
-            </a>
-          ))
-        }
-      </div>
-    </div>
-  </section>
+	<!-- ── PROJECTS ────────────────────────────────── -->
+	<section id="projects" class="py-24 scroll-mt-16">
+		<div class="mx-auto max-w-7xl px-4 sm:px-6 lg:px-8">
+			<p
+				class="text-sm font-bold tracking-wider text-primary uppercase mb-4"
+			>
+				05 — Projects
+			</p>
+			<h2 class="text-4xl font-black tracking-tight mb-14">
+				What I've built.
+			</h2>
+			<div class="grid md:grid-cols-2 lg:grid-cols-3 gap-6">
+				{
+					projects.map((project) => (
+						<a
+							href={project.href}
+							target="_blank"
+							rel="noopener noreferrer"
+							class="group block"
+						>
+							<Card className="h-full hover:shadow-md transition-shadow duration-300">
+								<CardHeader>
+									<div class="flex items-start justify-between">
+										<CardTitle className="text-base group-hover:underline underline-offset-2">
+											{project.title}
+										</CardTitle>
+										<svg
+											xmlns="http://www.w3.org/2000/svg"
+											width="16"
+											height="16"
+											fill="none"
+											viewBox="0 0 24 24"
+											stroke="currentColor"
+											stroke-width="2"
+											class="text-muted-foreground shrink-0 mt-0.5 group-hover:translate-x-0.5 group-hover:-translate-y-0.5 transition-transform"
+										>
+											<path
+												stroke-linecap="round"
+												stroke-linejoin="round"
+												d="M7 17L17 7M17 7H7M17 7v10"
+											/>
+										</svg>
+									</div>
+								</CardHeader>
+								<CardContent className="flex flex-col gap-4">
+									<CardDescription>
+										{project.description}
+									</CardDescription>
+									<div class="flex flex-wrap gap-1.5 mt-auto">
+										{project.tags.map((tag) => (
+											<Badge
+												variant="secondary"
+												className="text-xs"
+											>
+												{tag}
+											</Badge>
+										))}
+									</div>
+								</CardContent>
+							</Card>
+						</a>
+					))
+				}
+			</div>
+		</div>
+	</section>
 
-  <Separator />
+	<Separator />
 
-  <!-- ── CONTACT ────────────────────────────────── -->
-  <section id="contact" class="py-24 scroll-mt-16">
-    <div class="mx-auto max-w-7xl px-4 sm:px-6 lg:px-8">
-      <div class="max-w-2xl">
-        <p class="text-xs font-bold tracking-widest text-muted-foreground uppercase mb-4">
-          06 — Contact
-        </p>
-        <h2 class="text-4xl font-black tracking-tight mb-6">Let's talk.</h2>
-        <p class="text-lg text-muted-foreground mb-10 leading-relaxed">
-          Whether you have a project in mind, a job opportunity, or just want to say hi
-          — my inbox is always open.
-        </p>
-        <div class="grid sm:grid-cols-2 gap-4">
-          {
-            socials.map((s) => (
-              <a
-                href={s.href}
-                target={s.href.startsWith('mailto') ? undefined : '_blank'}
-                rel={s.href.startsWith('mailto') ? undefined : 'noopener noreferrer'}
-                class="flex items-center gap-3 p-4 rounded-xl border border-border hover:bg-muted transition-colors group"
-              >
-                <span class="text-xl">{s.icon}</span>
-                <span class="text-sm font-semibold group-hover:underline underline-offset-2">
-                  {s.label}
-                </span>
-                <svg
-                  xmlns="http://www.w3.org/2000/svg"
-                  width="14"
-                  height="14"
-                  fill="none"
-                  viewBox="0 0 24 24"
-                  stroke="currentColor"
-                  stroke-width="2"
-                  class="ml-auto text-muted-foreground"
-                >
-                  <path stroke-linecap="round" stroke-linejoin="round" d="M9 18l6-6-6-6" />
-                </svg>
-              </a>
-            ))
-          }
-        </div>
-      </div>
-    </div>
-  </section>
+	<!-- ── CONTACT ────────────────────────────────── -->
+	<section id="contact" class="py-24 scroll-mt-16">
+		<div class="mx-auto max-w-7xl px-4 sm:px-6 lg:px-8">
+			<div class="max-w-2xl">
+				<p
+					class="text-sm font-bold tracking-wider text-primary uppercase mb-4"
+				>
+					06 — Contact
+				</p>
+				<h2 class="text-4xl font-black tracking-tight mb-6">
+					Let's talk.
+				</h2>
+				<p class="text-lg text-muted-foreground mb-10 leading-relaxed">
+					Whether you have a project in mind, a job opportunity, or
+					just want to say hi — my inbox is always open.
+				</p>
+				<div class="grid sm:grid-cols-2 gap-4">
+					{
+						socials.map((s) => (
+							<a
+								href={s.href}
+								target={
+									s.href.startsWith("mailto")
+										? undefined
+										: "_blank"
+								}
+								rel={
+									s.href.startsWith("mailto")
+										? undefined
+										: "noopener noreferrer"
+								}
+								class="flex items-center gap-3 p-4 rounded-xl border border-border hover:bg-muted transition-colors group"
+							>
+								<span class="text-xl">{s.icon}</span>
+								<span class="text-sm font-semibold group-hover:underline underline-offset-2">
+									{s.label}
+								</span>
+								<svg
+									xmlns="http://www.w3.org/2000/svg"
+									width="14"
+									height="14"
+									fill="none"
+									viewBox="0 0 24 24"
+									stroke="currentColor"
+									stroke-width="2"
+									class="ml-auto text-muted-foreground"
+								>
+									<path
+										stroke-linecap="round"
+										stroke-linejoin="round"
+										d="M9 18l6-6-6-6"
+									/>
+								</svg>
+							</a>
+						))
+					}
+				</div>
+			</div>
+		</div>
+	</section>
 </BaseLayout>
-

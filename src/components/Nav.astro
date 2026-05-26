@@ -1,4 +1,6 @@
 ---
+import FontSwitcher from '@/components/FontSwitcher';
+
 const navLinks = [
   { href: '/#about', label: 'About' },
   { href: '/#experience', label: 'Experience' },
@@ -27,13 +29,18 @@ const navLinks = [
           navLinks.map((link) => (
             <a
               href={link.href}
-              class="text-sm font-medium text-muted-foreground hover:text-foreground transition-colors"
+              class="text-sm font-medium text-muted-foreground hover:text-primary transition-colors"
             >
               {link.label}
             </a>
           ))
         }
       </nav>
+
+      <!-- Font switcher (desktop) -->
+      <div class="hidden md:flex items-center">
+        <FontSwitcher client:load />
+      </div>
 
       <!-- Mobile toggle -->
       <button
