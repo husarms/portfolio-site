@@ -1,0 +1,205 @@
+---
+---
+
+<section class="hero-section relative min-h-[calc(100dvh-4rem)] flex items-center border-b border-border overflow-hidden">
+	<!-- Star layers — back to front, slow to fast parallax -->
+	<div class="stars-sm absolute w-full" aria-hidden="true"></div>
+	<div class="stars-md absolute w-full" aria-hidden="true"></div>
+	<div class="stars-lg absolute w-full" aria-hidden="true"></div>
+
+	<div class="relative mx-auto max-w-7xl px-4 sm:px-6 lg:px-8 py-24 w-full">
+		<!-- Solid white card with elevation -->
+		<div class="max-w-3xl rounded-2xl bg-background border border-border shadow-[0_20px_60px_-10px_rgba(0,0,0,0.8)] px-8 py-10 sm:px-12 sm:py-14">
+			<p class="text-sm font-medium tracking-widest text-foreground/50 uppercase mb-6">
+				Software Engineer & Traveler
+			</p>
+			<h1 class="text-6xl sm:text-7xl lg:text-8xl font-black tracking-tight leading-none mb-8 text-foreground">
+				Matt<br />Husar<span class="text-primary">.</span>
+			</h1>
+			<p class="text-xl text-foreground/70 max-w-lg mb-10 leading-relaxed">
+				I build scalable web products and document the world one
+				trip at a time. Based in Miami.
+			</p>
+			<div class="flex flex-wrap gap-4">
+				<a
+					href="#experience"
+					class="inline-flex items-center justify-center rounded-md bg-foreground text-background px-6 py-3 text-sm font-semibold hover:opacity-90 transition-opacity"
+				>
+					View my work
+				</a>
+				<a
+					href="/blog"
+					class="inline-flex items-center justify-center rounded-md border border-border px-6 py-3 text-sm font-semibold text-foreground hover:bg-black/5 transition-colors"
+				>
+					Travel blog →
+				</a>
+			</div>
+		</div>
+	</div>
+
+	<!-- Scroll indicator -->
+	<div class="absolute bottom-8 left-1/2 -translate-x-1/2 animate-bounce" aria-hidden="true">
+		<svg
+			xmlns="http://www.w3.org/2000/svg"
+			width="20"
+			height="20"
+			fill="none"
+			viewBox="0 0 24 24"
+			stroke="currentColor"
+			stroke-width="2"
+			class="text-white/40"
+		>
+			<path stroke-linecap="round" stroke-linejoin="round" d="M19 9l-7 7-7-7" />
+		</svg>
+	</div>
+</section>
+
+<style>
+	/* Deep space background */
+	.hero-section {
+		background:
+			radial-gradient(ellipse at 50% 110%, #1a1040 0%, transparent 60%),
+			radial-gradient(ellipse at 20% 20%, #0d1b4b 0%, transparent 50%),
+			#020209;
+	}
+
+	/* Shared — parallax timeline shared by all layers */
+	.stars-sm,
+	.stars-md,
+	.stars-lg {
+		will-change: transform;
+		background-repeat: repeat;
+		animation-timeline: scroll(root), auto;
+		animation-range: 0 100vh;
+	}
+
+	/* ── Layer 1: tiny dim stars (5s twinkle-a) ─────────────────────────── */
+	.stars-sm {
+		top: -10%;
+		height: 120%;
+		background-image:
+			radial-gradient(circle, rgba(255,255,255,0.9) 0.5px, transparent 0.5px),
+			radial-gradient(circle, rgba(255,255,255,0.7) 0.5px, transparent 0.5px),
+			radial-gradient(circle, rgba(255,255,255,0.8) 0.5px, transparent 0.5px),
+			radial-gradient(circle, rgba(255,255,255,0.6) 0.5px, transparent 0.5px),
+			radial-gradient(circle, rgba(255,255,255,0.9) 0.5px, transparent 0.5px),
+			radial-gradient(circle, rgba(255,255,255,0.7) 0.5px, transparent 0.5px),
+			radial-gradient(circle, rgba(255,255,255,0.8) 0.5px, transparent 0.5px),
+			radial-gradient(circle, rgba(255,255,255,0.5) 0.5px, transparent 0.5px),
+			radial-gradient(circle, rgba(255,255,255,0.9) 0.5px, transparent 0.5px),
+			radial-gradient(circle, rgba(255,255,255,0.7) 0.5px, transparent 0.5px),
+			radial-gradient(circle, rgba(255,255,255,0.6) 0.5px, transparent 0.5px),
+			radial-gradient(circle, rgba(255,255,255,0.8) 0.5px, transparent 0.5px),
+			radial-gradient(circle, rgba(255,255,255,0.9) 0.5px, transparent 0.5px),
+			radial-gradient(circle, rgba(255,255,255,0.7) 0.5px, transparent 0.5px),
+			radial-gradient(circle, rgba(255,255,255,0.5) 0.5px, transparent 0.5px),
+			radial-gradient(circle, rgba(255,255,255,0.8) 0.5px, transparent 0.5px),
+			radial-gradient(circle, rgba(255,255,255,0.6) 0.5px, transparent 0.5px),
+			radial-gradient(circle, rgba(255,255,255,0.9) 0.5px, transparent 0.5px);
+		background-position:
+			23px 18px,   78px 156px,  145px 34px,  189px 189px,
+			234px 78px,  312px 145px, 356px 23px,  389px 198px,
+			45px 112px,  134px 67px,  267px 178px, 311px 45px,
+			56px 234px,  178px 123px, 289px 89px,  345px 167px,
+			100px 200px, 223px 145px;
+		background-size: 400px 250px;
+		animation-name: hero-stars-sm, twinkle-a;
+		animation-duration: auto, 5s;
+		animation-delay: auto, 0s;
+		animation-timing-function: linear, ease-in-out;
+		animation-fill-mode: both, none;
+		animation-iteration-count: 1, infinite;
+	}
+
+	/* ── Layer 2: medium stars (7s twinkle-b) ───────────────────────────── */
+	.stars-md {
+		top: -15%;
+		height: 130%;
+		background-image:
+			radial-gradient(circle, rgba(255,255,255,0.9) 1px, transparent 1px),
+			radial-gradient(circle, rgba(255,255,255,0.8) 1px, transparent 1px),
+			radial-gradient(circle, rgba(255,255,255,1.0) 1px, transparent 1px),
+			radial-gradient(circle, rgba(255,255,255,0.7) 1px, transparent 1px),
+			radial-gradient(circle, rgba(255,255,255,0.9) 1px, transparent 1px),
+			radial-gradient(circle, rgba(255,255,255,0.8) 1px, transparent 1px),
+			radial-gradient(circle, rgba(255,255,255,0.6) 1px, transparent 1px),
+			radial-gradient(circle, rgba(255,255,255,1.0) 1px, transparent 1px),
+			radial-gradient(circle, rgba(255,255,255,0.8) 1px, transparent 1px),
+			radial-gradient(circle, rgba(255,255,255,0.9) 1px, transparent 1px),
+			radial-gradient(circle, rgba(255,255,255,0.7) 1px, transparent 1px),
+			radial-gradient(circle, rgba(255,255,255,1.0) 1px, transparent 1px);
+		background-position:
+			34px 45px,  123px 167px, 212px 23px,  289px 156px,
+			56px 89px,  178px 203px, 234px 78px,  312px 134px,
+			89px 178px, 156px 34px,  245px 112px, 323px 67px;
+		background-size: 360px 230px;
+		animation-name: hero-stars-md, twinkle-b;
+		animation-duration: auto, 7s;
+		animation-delay: auto, -2.8s;
+		animation-timing-function: linear, ease-in-out;
+		animation-fill-mode: both, none;
+		animation-iteration-count: 1, infinite;
+	}
+
+	/* ── Layer 3: bright accent stars with glow (11s twinkle-c) ─────────── */
+	.stars-lg {
+		top: -35%;
+		height: 170%;
+		background-image:
+			radial-gradient(circle, #fff 1.5px, rgba(255,255,255,0.20) 3px, transparent 5px),
+			radial-gradient(circle, #fff 1px,   rgba(255,255,255,0.30) 2.5px, transparent 4px),
+			radial-gradient(circle, #fff 1.5px, rgba(255,255,255,0.15) 3px, transparent 5px),
+			radial-gradient(circle, #fff 1px,   rgba(255,255,255,0.25) 2.5px, transparent 4px),
+			radial-gradient(circle, #fff 2px,   rgba(255,255,255,0.20) 4px, transparent 6px),
+			radial-gradient(circle, #fff 1.5px, rgba(255,255,255,0.15) 3px, transparent 5px),
+			radial-gradient(circle, #fff 1px,   rgba(255,255,255,0.30) 2px, transparent 4px),
+			radial-gradient(circle, #fff 1.5px, rgba(255,255,255,0.20) 3px, transparent 5px);
+		background-position:
+			67px 89px,   189px 267px, 312px 45px,  423px 178px,
+			156px 334px, 278px 123px, 445px 289px, 89px 178px;
+		background-size: 520px 400px;
+		animation-name: hero-stars-lg, twinkle-c;
+		animation-duration: auto, 11s;
+		animation-delay: auto, -5.5s;
+		animation-timing-function: linear, ease-in-out;
+		animation-fill-mode: both, none;
+		animation-iteration-count: 1, infinite;
+	}
+
+	@keyframes hero-stars-sm { to { transform: translateY(-6%);  } }
+	@keyframes hero-stars-md { to { transform: translateY(-10%); } }
+	@keyframes hero-stars-lg { to { transform: translateY(-20%); } }
+
+	/* Three distinct rhythms — prime durations mean they stay out of sync */
+	@keyframes twinkle-a {
+		0%   { opacity: 0.52; }
+		13%  { opacity: 0.35; }
+		27%  { opacity: 0.62; }
+		41%  { opacity: 0.38; }
+		55%  { opacity: 0.65; }
+		70%  { opacity: 0.40; }
+		84%  { opacity: 0.58; }
+		100% { opacity: 0.52; }
+	}
+
+	@keyframes twinkle-b {
+		0%   { opacity: 0.70; }
+		18%  { opacity: 0.88; }
+		34%  { opacity: 0.53; }
+		50%  { opacity: 0.85; }
+		66%  { opacity: 0.57; }
+		82%  { opacity: 0.90; }
+		100% { opacity: 0.70; }
+	}
+
+	@keyframes twinkle-c {
+		0%   { opacity: 0.80; }
+		9%   { opacity: 0.65; }
+		22%  { opacity: 1.00; }
+		38%  { opacity: 0.68; }
+		54%  { opacity: 0.95; }
+		70%  { opacity: 0.70; }
+		85%  { opacity: 0.92; }
+		100% { opacity: 0.80; }
+	}
+</style>

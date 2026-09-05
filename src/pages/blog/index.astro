@@ -20,7 +20,7 @@ const pins: TravelPin[] = sorted
         destination: p.data.destination ?? p.data.title,
         postTitle: p.data.title,
         postSlug: p.id,
-        heroImage: p.data.heroImage,
+        heroImage: typeof p.data.heroImage === 'string' ? p.data.heroImage : p.data.heroImage?.src,
     }));
 
 // Collect all unique tags

@@ -1,0 +1,83 @@
+---
+import { Badge } from '@/components/ui/badge';
+
+const experience = [
+	{
+		company: "CarMax",
+		role: "Principal Software Engineer",
+		period: "2022 — Present",
+		location: "Remote",
+		description:
+			"Full stack web developer on the Progression Experience team, delivering e-commerce products in a dual-track agile environment. Focused on JavaScript, React, and HTML single page applications. Mentors and coaches new developers on best practices.",
+		tags: ["React", "JavaScript", "Agile", "Mentoring"],
+	},
+	{
+		company: "CarMax",
+		role: "Senior Software Engineer",
+		period: "2018 — 2022",
+		location: "Remote",
+		description:
+			"Built a .NET Core Web API on Azure that reserves vehicles for customers, processing 3K requests daily. Drove a lead gen microsite with CI/CD practices enabling 150+ releases in year one. Earned Champion of the Quarter. Developed a QR/SMS feature used by 4K customers daily across 200 locations.",
+		tags: [".NET Core", "Azure", "React", "CI/CD", "Twilio"],
+	},
+	{
+		company: "CarMax",
+		role: "Software Developer II",
+		period: "2011 — 2018",
+		location: "Richmond, VA",
+		description:
+			"Designed the CarMax Home Delivery platform and built customer-facing document upload tooling processing 3,500 uploads daily. Earlier role focused on HR & Payroll systems including a Workday SaaS implementation and integrations serving 20K employees.",
+		tags: [".NET", "React", "Azure", "SQL", "SSO"],
+	},
+	{
+		company: "PowerSoft Technologies",
+		role: "Software Engineering Intern",
+		period: "2010 — 2011",
+		location: "McLean, VA",
+		description:
+			"Delivered a new instructor operating system for a multimillion-dollar military flight simulator under an XP framework. Used OpenGL to plot geographic data and flight variables in real time.",
+		tags: ["C#", "OpenGL", "XP"],
+	},
+];
+---
+
+<section id="experience" class="py-24 scroll-mt-16">
+	<div class="mx-auto max-w-7xl px-4 sm:px-6 lg:px-8">
+		<p class="text-sm font-bold tracking-wider text-primary uppercase mb-4">
+			02 — Experience
+		</p>
+		<h2 class="text-4xl font-black tracking-tight mb-14">
+			Where I've worked.
+		</h2>
+
+		<div class="space-y-12">
+			{
+				experience.map((job) => (
+					<div class="grid md:grid-cols-[200px_1fr] gap-4 md:gap-12">
+						<div class="md:pt-1">
+							<p class="text-sm font-semibold">{job.period}</p>
+							<p class="text-xs text-muted-foreground mt-0.5">{job.location}</p>
+						</div>
+						<div class="relative pl-6 border-l border-border">
+							<span class="absolute left-0 top-1.5 -translate-x-1/2 w-2.5 h-2.5 rounded-full bg-primary ring-4 ring-background" />
+							<p class="text-xs font-bold tracking-widest text-muted-foreground uppercase mb-1">
+								{job.company}
+							</p>
+							<h3 class="text-xl font-bold mb-2">{job.role}</h3>
+							<p class="text-muted-foreground text-sm leading-relaxed mb-4">
+								{job.description}
+							</p>
+							<div class="flex flex-wrap gap-1.5">
+								{job.tags.map((tag) => (
+									<Badge variant="secondary" className="text-xs">
+										{tag}
+									</Badge>
+								))}
+							</div>
+						</div>
+					</div>
+				))
+			}
+		</div>
+	</div>
+</section>

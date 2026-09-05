@@ -54,10 +54,12 @@ const canonicalURL = new URL(
             href="https://api.fontshare.com/v2/css?f[]=cabinet-grotesk@800,700,500,400&f[]=satoshi@700,500,400&display=swap"
         />
 
-        <!-- Restore saved font preference before first paint to avoid flash -->
+        <!-- Restore saved preferences before first paint to avoid flash -->
         <script is:inline>
             const f = localStorage.getItem('portfolio-font');
             if (f && f !== 'geist') document.documentElement.setAttribute('data-font', f);
+            const t = localStorage.getItem('portfolio-theme');
+            if (t === 'dark') document.documentElement.classList.add('dark');
         </script>
     </head>
     <body class="min-h-screen flex flex-col antialiased">

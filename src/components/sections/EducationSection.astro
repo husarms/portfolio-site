@@ -1,0 +1,46 @@
+---
+import { Card, CardContent, CardHeader, CardTitle, CardDescription } from '@/components/ui/card';
+
+const education = [
+	{
+		school: "James Madison University",
+		degree: "BBA, Computer Information Systems",
+		period: "2005 — 2010",
+		description:
+			"Bachelor of Business Administration with a focus on Computer Information Systems.",
+	},
+];
+---
+
+<section id="education" class="py-24 scroll-mt-16">
+	<div class="mx-auto max-w-7xl px-4 sm:px-6 lg:px-8">
+		<p class="text-sm font-bold tracking-wider text-primary uppercase mb-4">
+			03 — Education
+		</p>
+		<h2 class="text-4xl font-black tracking-tight mb-14">
+			Where I studied.
+		</h2>
+		<div class="space-y-6">
+			{
+				education.map((edu) => (
+					<Card className="max-w-2xl">
+						<CardHeader>
+							<div class="flex items-start justify-between gap-4">
+								<div>
+									<CardTitle className="text-xl">{edu.school}</CardTitle>
+									<CardDescription className="text-base mt-1">
+										{edu.degree}
+									</CardDescription>
+								</div>
+								<p class="text-sm text-muted-foreground shrink-0">{edu.period}</p>
+							</div>
+						</CardHeader>
+						<CardContent>
+							<p class="text-sm text-muted-foreground">{edu.description}</p>
+						</CardContent>
+					</Card>
+				))
+			}
+		</div>
+	</div>
+</section>

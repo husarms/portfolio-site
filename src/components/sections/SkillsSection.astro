@@ -1,0 +1,39 @@
+---
+import { Badge } from '@/components/ui/badge';
+
+const skills: Record<string, string[]> = {
+	Frontend: ["React", "TypeScript", "Next.js", "Astro", "Tailwind CSS", "Figma"],
+	Backend: ["Node.js", "Python", "PostgreSQL", "Redis", "GraphQL", "REST APIs"],
+	Infrastructure: ["AWS", "Docker", "Vercel", "GitHub Actions", "Terraform"],
+	Other: ["Technical Writing", "Agile / Scrum", "Mentoring", "Code Review"],
+};
+---
+
+<section id="skills" class="py-24 scroll-mt-16">
+	<div class="mx-auto max-w-7xl px-4 sm:px-6 lg:px-8">
+		<p class="text-sm font-bold tracking-wider text-primary uppercase mb-4">
+			04 — Skills
+		</p>
+		<h2 class="text-4xl font-black tracking-tight mb-14">
+			What I work with.
+		</h2>
+		<div class="grid sm:grid-cols-2 lg:grid-cols-4 gap-10">
+			{
+				Object.entries(skills).map(([category, items]) => (
+					<div>
+						<h3 class="text-xs font-bold tracking-widest text-muted-foreground uppercase mb-4">
+							{category}
+						</h3>
+						<div class="flex flex-wrap gap-2">
+							{items.map((skill) => (
+								<Badge variant="outline" className="text-xs font-medium">
+									{skill}
+								</Badge>
+							))}
+						</div>
+					</div>
+				))
+			}
+		</div>
+	</div>
+</section>

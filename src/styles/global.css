@@ -139,6 +139,23 @@
     }
 }
 
+/* ── Hero parallax ────────────────────────────────────────────────────────
+   CSS scroll-driven animation — runs on the compositor thread (no JS).
+   The image is made 20% taller than its container and translated upward
+   as the hero scrolls out of view, creating a depth/parallax effect.
+   Falls back gracefully to normal positioning in older browsers.
+────────────────────────────────────────────────────────────────────────── */
+@keyframes hero-parallax {
+  to { transform: translateY(-18%); }
+}
+
+.parallax-hero {
+  will-change: transform;
+  animation: hero-parallax linear both;
+  animation-timeline: scroll(root);
+  animation-range: 0 100vh;
+}
+
 /* ── Font theme overrides ─────────────────────────────────────────────────
    Set data-font attribute on <html> to switch between font combinations.
    The FontSwitcher component handles this + persists to localStorage.

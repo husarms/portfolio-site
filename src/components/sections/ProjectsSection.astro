@@ -1,0 +1,87 @@
+---
+import { Badge } from '@/components/ui/badge';
+import { Card, CardContent, CardHeader, CardTitle, CardDescription } from '@/components/ui/card';
+
+const projects = [
+	{
+		title: "Portfolio Site",
+		description:
+			"This site — a personal portfolio and travel blog built with Astro, shadcn/ui, and Tailwind CSS. Deployed on Vercel.",
+		tags: ["Astro", "TypeScript", "shadcn/ui", "MDX"],
+		href: "https://github.com/matthusar/portfolio-site",
+	},
+	{
+		title: "Travel Tracker",
+		description:
+			"A full-stack app to log, map, and share travel experiences. Features geolocation tagging, photo uploads, and shareable trip links.",
+		tags: ["Next.js", "Mapbox", "Supabase", "Vercel"],
+		href: "https://github.com/matthusar/travel-tracker",
+	},
+	{
+		title: "Open Source Contributions",
+		description:
+			"Active contributor to open source projects including accessibility improvements to popular component libraries and developer tooling.",
+		tags: ["Open Source", "TypeScript", "React", "Accessibility"],
+		href: "https://github.com/matthusar",
+	},
+];
+---
+
+<section id="projects" class="py-24 scroll-mt-16">
+	<div class="mx-auto max-w-7xl px-4 sm:px-6 lg:px-8">
+		<p class="text-sm font-bold tracking-wider text-primary uppercase mb-4">
+			05 — Projects
+		</p>
+		<h2 class="text-4xl font-black tracking-tight mb-14">
+			What I've built.
+		</h2>
+		<div class="grid md:grid-cols-2 lg:grid-cols-3 gap-6">
+			{
+				projects.map((project) => (
+					<a
+						href={project.href}
+						target="_blank"
+						rel="noopener noreferrer"
+						class="group block"
+					>
+						<Card className="h-full hover:shadow-md transition-shadow duration-300">
+							<CardHeader>
+								<div class="flex items-start justify-between">
+									<CardTitle className="text-base group-hover:underline underline-offset-2">
+										{project.title}
+									</CardTitle>
+									<svg
+										xmlns="http://www.w3.org/2000/svg"
+										width="16"
+										height="16"
+										fill="none"
+										viewBox="0 0 24 24"
+										stroke="currentColor"
+										stroke-width="2"
+										class="text-muted-foreground shrink-0 mt-0.5 group-hover:translate-x-0.5 group-hover:-translate-y-0.5 transition-transform"
+									>
+										<path
+											stroke-linecap="round"
+											stroke-linejoin="round"
+											d="M7 17L17 7M17 7H7M17 7v10"
+										/>
+									</svg>
+								</div>
+							</CardHeader>
+							<CardContent className="flex flex-col gap-4">
+								<CardDescription>{project.description}</CardDescription>
+								<div class="flex flex-wrap gap-1.5 mt-auto">
+									{project.tags.map((tag) => (
+										<Badge variant="secondary" className="text-xs">
+											{tag}
+										</Badge>
+									))}
+								</div>
+							</CardContent>
+						</Card>
+					</a>
+				))
+			}
+		</div>
+	</div>
+</section>
