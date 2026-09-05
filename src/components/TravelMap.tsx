@@ -88,7 +88,7 @@ export default function TravelMap({ pins }: TravelMapProps) {
         >
             <TileLayer
                 attribution='&copy; <a href="https://www.openstreetmap.org/copyright">OpenStreetMap</a> contributors &copy; <a href="https://carto.com/attributions">CARTO</a>'
-                url="https://{s}.basemaps.cartocdn.com/rastertiles/voyager/{z}/{x}/{y}{r}.png?api_key=cb1_2y49_1_e7499800e5c95938cb1890ef"
+                url="https://{s}.basemaps.cartocdn.com/rastertiles/voyager/{z}/{x}/{y}{r}.png?key=cb1_2y49_1_e7499800e5c95938cb1890ef"
             />
 
             <FitBounds pins={pins} />
