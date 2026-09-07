@@ -1,14 +1,31 @@
 'use client';
 
-import { MapContainer, TileLayer, Marker, Popup } from 'react-leaflet';
+import { MapContainer, Marker, Popup, useMap } from 'react-leaflet';
+import { useEffect } from 'react';
 import type { LatLngExpression } from 'leaflet';
+import L from 'leaflet';
 import 'leaflet/dist/leaflet.css';
+import '@maplibre/maplibre-gl-leaflet';
+import 'maplibre-gl/dist/maplibre-gl.css';
 
 // Fix default marker icons broken by Vite/webpack bundling
-import L from 'leaflet';
 import markerIcon2x from 'leaflet/dist/images/marker-icon-2x.png';
 import markerIcon from 'leaflet/dist/images/marker-icon.png';
 import markerShadow from 'leaflet/dist/images/marker-shadow.png';
+
+// Available map styles to try
+export const MAP_STYLES = {
+    // Bright, clean style similar to Carto's voyager
+    positron: 'https://basemaps.cartocdn.com/gl/positron-gl-style/style.json',
+    // Dark style
+    voyager: 'https://basemaps.cartocdn.com/gl/voyager-gl-style/style.json',
+    // Light alternative
+    light: 'https://demotiles.maplibre.org/style.json',
+    // Dark alternative
+    dark: 'https://basemaps.cartocdn.com/gl/dark-matter-gl-style/style.json',
+} as const;
+
+type MapStyleKey = keyof typeof MAP_STYLES;
 
 delete (L.Icon.Default.prototype as unknown as Record<string, unknown>)._getIconUrl;
 L.Icon.Default.mergeOptions({
@@ -16,6 +33,22 @@ L.Icon.Default.mergeOptions({
     iconUrl: markerIcon.src ?? markerIcon,
     shadowUrl: markerShadow.src ?? markerShadow,
 });
+
+// MapLibre GL vector tiles layer
+function VectorTileLayer({ style = 'positron' }: { style?: MapStyleKey }) {
+    const map = useMap();
+    useEffect(() => {
+        const styleUrl = MAP_STYLES[style];
+        const glLayer = L.maplibreGL({
+            style: styleUrl,
+        });
+        glLayer.addTo(map);
+        return () => {
+            map.removeLayer(glLayer);
+        };
+    }, [map, style]);
+    return null;
+}
 
 interface MapEmbedProps {
     lat: number;
@@ -40,10 +73,7 @@ export default function MapEmbed({ lat, lng, destination, zoom = 10 }: MapEmbedP
                 scrollWheelZoom={false}
                 style={{ height: '380px', width: '100%' }}
             >
-                <TileLayer
-                    attribution='&copy; <a href="https://www.openstreetmap.org/copyright">OpenStreetMap</a> contributors &copy; <a href="https://carto.com/attributions">CARTO</a>'
-                    url="https://{s}.basemaps.cartocdn.com/rastertiles/voyager/{z}/{x}/{y}{r}.png?key=cb1_2y49_1_e7499800e5c95938cb1890ef"
-                />
+                <VectorTileLayer />
                 <Marker position={position}>
                     <Popup>{destination}</Popup>
                 </Marker>

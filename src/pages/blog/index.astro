@@ -20,7 +20,7 @@ const pins: TravelPin[] = sorted
         destination: p.data.destination ?? p.data.title,
         postTitle: p.data.title,
         postSlug: p.id,
-        heroImage: typeof p.data.heroImage === 'string' ? p.data.heroImage : p.data.heroImage?.src,
+        heroImage: typeof p.data.thumbnailImage === 'string' ? p.data.thumbnailImage : p.data.thumbnailImage?.src,
     }));
 
 // Collect all unique tags
@@ -67,8 +67,7 @@ const filtered = activeTag
                                 Where I've been
                             </h2>
                             <p class="text-sm text-muted-foreground mt-0.5">
-                                {pins.length} destination
-                                {pins.length !== 1 ? "s" : ""} and counting
+                                {pins.length} destination{pins.length !== 1 ? "s" : ""} and counting
                             </p>
                         </div>
                     </div>

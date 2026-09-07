@@ -8,7 +8,8 @@ const blog = defineCollection({
     description: z.string(),
     pubDate: z.coerce.date(),
     updatedDate: z.coerce.date().optional(),
-    heroImage: z.union([image(), z.string()]).optional(),
+    thumbnailImage: z.union([image(), z.string()]).optional(),
+    thumbnailImagePosition: z.enum(['center', 'top', 'bottom', 'left', 'right', 'top-left', 'top-right', 'bottom-left', 'bottom-right']).default('center').optional(),
     tags: z.array(z.string()).default([]),
     destination: z.string().optional(),
     coordinates: z

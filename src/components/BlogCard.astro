@@ -9,33 +9,47 @@ interface Props {
 }
 
 const { post } = Astro.props;
-const { title, description, pubDate, heroImage, tags, destination } = post.data;
+const { title, description, pubDate, thumbnailImage, thumbnailImagePosition = 'center', tags, destination } = post.data;
 const formattedDate = pubDate.toLocaleDateString('en-US', {
   year: 'numeric',
   month: 'long',
   day: 'numeric',
 });
+
+const objectPositionMap: Record<string, string> = {
+  'center': 'object-center',
+  'top': 'object-top',
+  'bottom': 'object-bottom',
+  'left': 'object-left',
+  'right': 'object-right',
+  'top-left': 'object-top-left',
+  'top-right': 'object-top-right',
+  'bottom-left': 'object-bottom-left',
+  'bottom-right': 'object-bottom-right',
+};
+
+const objectPositionClass = objectPositionMap[thumbnailImagePosition] || 'object-center';
 ---
 
 <article
   class="group relative flex flex-col overflow-hidden rounded-xl border border-border bg-card hover:shadow-lg transition-shadow duration-300"
 >
-  <!-- Hero image -->
+  <!-- Thumbnail image -->
   <a href={`/blog/${post.id}`} class="block overflow-hidden aspect-[16/9] bg-muted">
     {
-      heroImage ? (
-        typeof heroImage === 'string' ? (
+      thumbnailImage ? (
+        typeof thumbnailImage === 'string' ? (
           <img
-            src={heroImage}
+            src={thumbnailImage}
             alt={title}
-            class="w-full h-full object-cover group-hover:scale-105 transition-transform duration-500"
+            class={`w-full h-full object-cover ${objectPositionClass} group-hover:scale-105 transition-transform duration-500`}
             loading="lazy"
           />
         ) : (
           <Image
-            src={heroImage as ImageMetadata}
+            src={thumbnailImage as ImageMetadata}
             alt={title}
-            class="w-full h-full object-cover group-hover:scale-105 transition-transform duration-500"
+            class={`w-full h-full object-cover ${objectPositionClass} group-hover:scale-105 transition-transform duration-500`}
             loading="lazy"
           />
         )

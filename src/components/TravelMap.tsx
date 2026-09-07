@@ -1,10 +1,12 @@
 'use client';
 
 import { useEffect, useRef, useState } from 'react';
-import { MapContainer, TileLayer, Marker, Popup, useMap } from 'react-leaflet';
+import { MapContainer, Marker, Popup, useMap } from 'react-leaflet';
 import type { LatLngExpression, Map as LeafletMap } from 'leaflet';
 import L from 'leaflet';
 import 'leaflet/dist/leaflet.css';
+import '@maplibre/maplibre-gl-leaflet';
+import 'maplibre-gl/dist/maplibre-gl.css';
 
 // Fix default marker icons broken by Vite/webpack bundling
 import markerIcon2x from 'leaflet/dist/images/marker-icon-2x.png';
@@ -18,7 +20,21 @@ L.Icon.Default.mergeOptions({
     shadowUrl: markerShadow.src ?? markerShadow,
 });
 
-// A custom red pin icon to differentiate from the per-post map pins
+// Available map styles to try
+export const MAP_STYLES = {
+    // Bright, clean style similar to Carto's voyager
+    positron: 'https://basemaps.cartocdn.com/gl/positron-gl-style/style.json',
+    // Dark style
+    voyager: 'https://basemaps.cartocdn.com/gl/voyager-gl-style/style.json',
+    // Light alternative
+    light: 'https://demotiles.maplibre.org/style.json',
+    // Dark alternative
+    dark: 'https://basemaps.cartocdn.com/gl/dark-matter-gl-style/style.json',
+} as const;
+
+type MapStyleKey = keyof typeof MAP_STYLES;
+
+// A custom blue pin icon to match the site's accent color
 function createPinIcon() {
     return L.divIcon({
         className: '',
@@ -26,7 +42,7 @@ function createPinIcon() {
             `<div style="
                 width: 28px;
                 height: 28px;
-                background: hsl(0 84% 60%);
+                background: hsl(201 88% 62%);
                 border: 3px solid white;
                 border-radius: 50% 50% 50% 0;
                 transform: rotate(-45deg);
@@ -66,6 +82,22 @@ function FitBounds({ pins }: { pins: TravelPin[] }) {
     return null;
 }
 
+// MapLibre GL vector tiles layer
+function VectorTileLayer({ style = 'positron' }: { style?: MapStyleKey }) {
+    const map = useMap();
+    useEffect(() => {
+        const styleUrl = MAP_STYLES[style];
+        const glLayer = L.maplibreGL({
+            style: styleUrl,
+        });
+        glLayer.addTo(map);
+        return () => {
+            map.removeLayer(glLayer);
+        };
+    }, [map, style]);
+    return null;
+}
+
 export default function TravelMap({ pins }: TravelMapProps) {
     const pinIcon = useRef<L.DivIcon | null>(null);
     const [ready, setReady] = useState(false);
@@ -86,10 +118,7 @@ export default function TravelMap({ pins }: TravelMapProps) {
             worldCopyJump={true}
             minZoom={2}
         >
-            <TileLayer
-                attribution='&copy; <a href="https://www.openstreetmap.org/copyright">OpenStreetMap</a> contributors &copy; <a href="https://carto.com/attributions">CARTO</a>'
-                url="https://{s}.basemaps.cartocdn.com/rastertiles/voyager/{z}/{x}/{y}{r}.png?key=cb1_2y49_1_e7499800e5c95938cb1890ef"
-            />
+            <VectorTileLayer />
 
             <FitBounds pins={pins} />
 
