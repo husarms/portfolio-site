@@ -1,6 +1,9 @@
 ---
 import { Badge } from '@/components/ui/badge';
 import { Card, CardContent, CardHeader, CardTitle, CardDescription } from '@/components/ui/card';
+import portfolioImage from '@/assets/projects/portfolio-site.png';
+import audioVisualizerImage from '@/assets/projects/audio-visualizer.png';
+import coinSurferImage from '@/assets/projects/coin-surfer.png';
 
 const projects = [
 	{
@@ -9,6 +12,7 @@ const projects = [
 			"This site - personal portfolio and travel blog built with Astro and React. Features interactive travel map with vector tiles, dark mode, and responsive design. Deployed on Vercel.",
 		tags: ["Astro", "React", "TypeScript", "Leaflet", "shadcn/ui", "MDX"],
 		href: "https://github.com/husarms/portfolio-site",
+		image: portfolioImage,
 	},
 	{
 		title: "Audio Visualizer",
@@ -16,6 +20,7 @@ const projects = [
 			"Winamp-style real-time audio visualizer featuring spectral bars, oscilloscope, MilkDrop-inspired radial patterns, and beat detection with reactive transitions.",
 		tags: ["Svelte", "TypeScript", "Web Audio API", "Canvas", "DaisyUI"],
 		href: "https://github.com/husarms/audio-visualizer",
+		image: audioVisualizerImage,
 	},
 	{
 		title: "Coin Surfer",
@@ -23,6 +28,7 @@ const projects = [
 			"Open-source algorithmic cryptocurrency trading platform. Features customizable trading strategies, real-time market monitoring, visualization dashboard, and Coinbase integration.",
 		tags: ["Trading Bot", "TypeScript", "Node.js", "React", "Cryptocurrency", "WebSockets"],
 		href: "https://github.com/husarms/coin-surfer",
+		image: coinSurferImage,
 	},
 ];
 ---
@@ -44,7 +50,12 @@ const projects = [
 						rel="noopener noreferrer"
 						class="group block"
 					>
-						<Card className="h-full hover:shadow-md transition-shadow duration-300">
+						<Card className="h-full hover:shadow-md transition-shadow duration-300 overflow-hidden">
+							<img
+								src={project.image.src}
+								alt={project.title}
+								class="w-full h-48 object-cover"
+							/>
 							<CardHeader>
 								<div class="flex items-start justify-between">
 									<CardTitle className="text-base group-hover:underline underline-offset-2">

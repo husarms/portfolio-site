@@ -87,7 +87,7 @@ function FitBounds({ pins }: { pins: TravelPin[] }) {
 }
 
 // MapLibre GL vector tiles layer
-function VectorTileLayer({ style = 'positron' }: { style?: MapStyleKey }) {
+function VectorTileLayer({ style = 'voyager' }: { style?: MapStyleKey }) {
     const map = useMap();
     useEffect(() => {
         const styleUrl = MAP_STYLES[style];
