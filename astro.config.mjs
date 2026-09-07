@@ -12,8 +12,5 @@ export default defineConfig({
 
   vite: {
     plugins: [tailwindcss()],
-    optimizeDeps: {
-      exclude: ['maplibre-gl'],
-    },
   },
 });
