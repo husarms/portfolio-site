@@ -17,7 +17,7 @@ export default function ThemeSwitcher() {
   const [mounted, setMounted] = useState(false);
 
   useEffect(() => {
-    const saved = (localStorage.getItem(LS_KEY) ?? 'light') as 'light' | 'dark';
+    const saved = (localStorage.getItem(LS_KEY) ?? 'dark') as 'light' | 'dark';
     setTheme(saved);
     applyTheme(saved);
     setMounted(true);
